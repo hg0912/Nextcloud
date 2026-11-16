@@ -1,34 +1,34 @@
 services:
  db:
- image: mariadb:11.8
- container_name: nc-db-HugoOrtega
- restart: unless-stopped
- command: --transaction-isolation=READ-COMMITTED
- environment:
- MARIADB_ROOT_PASSWORD: abc
- MARIADB_DATABASE: nextcloud
- MARIADB_USER: nextcloud
- MARIADB_PASSWORD: abc
- volumes:
- - db_data:/var/lib/mysql
+  image: mariadb:11.8
+  container_name: nc-db-HugoOrtega
+  restart: unless-stopped
+  command: --transaction-isolation=READ-COMMITTED
+  environment:
+   MARIADB_ROOT_PASSWORD: abc
+   MARIADB_DATABASE: nextcloud
+   MARIADB_USER: nextcloud
+   MARIADB_PASSWORD: abc
+  volumes:
+   - db_data:/var/lib/mysql
  app:
- image: nextcloud
- container_name: nc-app-HugoOrtega
- restart: unless-stopped
- depends_on:
- - db
- ports:
- - "8081:80"
- environment:
- MYSQL_HOST: db
- MYSQL_DATABASE: nextcloud
- MYSQL_USER: nextcloud
- MYSQL_PASSWORD: abc
- NEXTCLOUD_ADMIN_USER: admin-EMPRESA
- NEXTCLOUD_ADMIN_PASSWORD: abc
- NEXTCLOUD_TRUSTED_DOMAINS: localhost
- volumes:
- - nextcloud_data:/var/www/html
+  image: nextcloud
+  container_name: nc-app-HugoOrtega
+  restart: unless-stopped
+  depends_on:
+   - db
+  ports:
+   - "8081:80"
+  environment:
+   MYSQL_HOST: db
+   MYSQL_DATABASE: nextcloud
+   MYSQL_USER: nextcloud
+   MYSQL_PASSWORD: abc
+   NEXTCLOUD_ADMIN_USER: admin-CASCA
+   NEXTCLOUD_ADMIN_PASSWORD: abc
+   NEXTCLOUD_TRUSTED_DOMAINS: localhost, 10.20.7.21
+  volumes:
+    - nextcloud_data:/var/www/html
 volumes:
  db_data:
  nextcloud_data:
